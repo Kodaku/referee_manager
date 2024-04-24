@@ -6,19 +6,20 @@ export enum Gender {
 
 export type RefereeInitialState = {
   currentReferee: Referee;
+  registrationOk: boolean;
 };
 
 export type Referee = {
-  name: string;
-  mechanographic_code: string;
-  password: string;
-  qualification: string;
-  geneder: Gender;
+  name?: string;
+  mechanographic_code?: string;
+  password?: string;
+  qualification?: string;
+  geneder?: Gender;
 };
 
 export type RefereeLoginRequest = {
-  mechanographic_code: string;
-  password: string;
+  mechanographic_code?: string;
+  password?: string;
 };
 
 export type RefereeLoginResponse = {

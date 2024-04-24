@@ -13,6 +13,7 @@ const initialState: RefereeInitialState = {
     password: "",
     qualification: "",
   },
+  registrationOk: false,
 };
 
 const refereesSlice = createSlice({
@@ -24,6 +25,13 @@ const refereesSlice = createSlice({
 
       if (referee) {
         state.currentReferee = referee;
+      }
+    },
+    registerReferee(state, action: PayloadAction<{ referee: Referee }>) {
+      const referee = action.payload.referee;
+
+      if (referee) {
+        state.registrationOk = true;
       }
     },
   },

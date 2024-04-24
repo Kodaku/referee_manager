@@ -1,7 +1,11 @@
 import { Action, ThunkAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "..";
-import { URL } from "../../utils/http_constants";
+import {
+  LOGIN_ENDPOINT,
+  SIGNUP_ENDPOINT,
+  URL,
+} from "../../utils/http_constants";
 import {
   Referee,
   RefereeLoginRequest,
@@ -15,9 +19,13 @@ export const loginReferee = (
 ): ThunkAction<void, RootState, unknown, Action> => {
   return async (dispatch) => {
     const login = async () => {
-      const response = await axios.post(`${URL}/login`, referee);
+      const response = await axios.post(`${URL}/${LOGIN_ENDPOINT}`, referee);
 
       const serverResponse = response.data as RefereeLoginResponse;
+
+      if (serverResponse.token && serverResponse.referee) {
+        sessionStorage.setItem("token", serverResponse.token);
+      }
 
       return serverResponse.referee;
     };
@@ -33,7 +41,7 @@ export const registerReferee = (
 ): ThunkAction<void, RootState, unknown, Action> => {
   return async (dispatch) => {
     const signUp = async () => {
-      const response = await axios.post(`${URL}/signup`, referee);
+      const response = await axios.post(`${URL}/${SIGNUP_ENDPOINT}`, referee);
 
       const serverResponse = response.data as RefereeSignUpResponse;
 
@@ -42,6 +50,7 @@ export const registerReferee = (
 
     const response = await signUp();
     console.log(response);
-    if (response) dispatch(refereesActions.getReferee({ referee: response }));
+    if (response)
+      dispatch(refereesActions.registerReferee({ referee: response }));
   };
 };

@@ -1,6 +1,31 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { RefereeLoginRequest } from "../types/referees.types";
+import { useAppDispatch } from "../hooks/redux-hooks";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const [loginReferee, setLoginReferee] = useState<RefereeLoginRequest>();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      // verifica che il token sia ancora valido e se lo è continua altrimenti resta sulla pagina di login
+    }
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const value = e.target.value;
+    setLoginReferee((prevState): RefereeLoginRequest => {
+      return {
+        ...prevState,
+        [e.target.name]: value,
+      };
+    });
+  };
+
   return (
     <div className="container-scroller">
       <div className="container-fluid page-body-wrapper full-page-wrapper">
