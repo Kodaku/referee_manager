@@ -1,0 +1,10 @@
+referee_manager_ui/node_modules
+referee_manager_be/node_modules
+.vscode
+referee_manager_be/.vscode
+referee_manager_ui/.vscode
+
+referee_manager_be/package-lock.json
+referee_manager_ui/package-lock.json
+
+referee_manager_be/.env
