@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { useEffect, useState } from "react";
-import { Referee } from "../types/referees.types";
-import { registerReferee } from "../store/actions/referees.actions";
+import { Referee } from "../../types/referees.types";
+import { registerReferee } from "../../store/actions/referees.actions";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -35,7 +35,9 @@ const SignUp = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(checkPassword, referee?.password);
     if (checkPassword === referee?.password) {
       if (referee) {
         dispatch(registerReferee(referee));
@@ -51,7 +53,7 @@ const SignUp = () => {
             <div className="col-lg-4 mx-auto">
               <div className="auth-form-light text-left py-5 px-4 px-sm-5">
                 <h6 className="font-weight-light">Registrati</h6>
-                <form className="pt-3">
+                <form className="pt-3" onSubmit={handleSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
@@ -120,7 +122,6 @@ const SignUp = () => {
                     <button
                       className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
                       type="submit"
-                      onClick={() => handleSubmit()}
                     >
                       Registrati
                     </button>

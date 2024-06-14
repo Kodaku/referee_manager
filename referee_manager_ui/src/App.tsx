@@ -1,7 +1,9 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import SignUp from "./components/SignUp";
-import Login from "./components/Login";
+import SignUp from "./components/login/SignUp";
+import Login from "./components/login/Login";
+import Dashboard from "./components/dashboard/Dashboard";
+import CreateMatch from "./components/match/CreateMatch";
 
 function App() {
   return (
@@ -9,6 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/match-create" element={<CreateMatch />} />
       </Routes>
     </>
   );

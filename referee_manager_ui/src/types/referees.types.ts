@@ -30,3 +30,7 @@ export type RefereeLoginResponse = {
 export type RefereeSignUpResponse = {
   referee: Referee;
 };
+
+export type GetRefereeResponse = {
+  existingUser: Referee;
+};

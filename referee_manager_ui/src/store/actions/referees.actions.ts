@@ -2,11 +2,13 @@ import { Action, ThunkAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "..";
 import {
+  GET_REFEREE_ENDPOINT,
   LOGIN_ENDPOINT,
   SIGNUP_ENDPOINT,
   URL,
 } from "../../utils/http_constants";
 import {
+  GetRefereeResponse,
   Referee,
   RefereeLoginRequest,
   RefereeLoginResponse,
@@ -45,6 +47,8 @@ export const registerReferee = (
 
       const serverResponse = response.data as RefereeSignUpResponse;
 
+      console.log(serverResponse);
+
       return serverResponse.referee;
     };
 
@@ -52,5 +56,26 @@ export const registerReferee = (
     console.log(response);
     if (response)
       dispatch(refereesActions.registerReferee({ referee: response }));
+  };
+};
+
+export const getReferee = (
+  token: string
+): ThunkAction<void, RootState, unknown, Action> => {
+  return async (dispatch) => {
+    const getEntity = async () => {
+      const response = await axios.post(`${URL}/${GET_REFEREE_ENDPOINT}`, {
+        token,
+      });
+
+      const serverResponse = response.data as GetRefereeResponse;
+
+      return serverResponse;
+    };
+
+    const response = await getEntity();
+    console.log(response);
+    if (response)
+      dispatch(refereesActions.getReferee({ referee: response.existingUser }));
   };
 };
